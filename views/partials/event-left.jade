@@ -1,0 +1,64 @@
+block content
+    if event.open
+        div.row
+            div.col-xs-12
+                if joined === true
+                    form(role='form' method='post' action='/events/leave')
+                        .form-group
+                            input(type='hidden' name='event', value= id)
+                        .form-group
+                            input(type='hidden', name='_csrf', value=_csrf)
+                        button.leave-hack(type='submit') Leave Hack
+                else
+                    form(role='form' method='post' action='/events/join')
+                        .form-group
+                            input(type='hidden' name='event', value= id)
+                        .form-group
+                            input(type='hidden', name='_csrf', value=_csrf)
+                        button.join-hack(type='submit') Join Hack
+
+    div.row
+        div.col-xs-12
+            div.hack-background
+                div.participant-heading
+                    span= participants.length
+                    span  joined
+                for participant in participants
+                    div
+                        +profile-picture(participant, 'participant-avatar')
+                        if participant.profile.name
+                            span.participant-name= participant.profile.name
+                        else
+                            span.participant-name= participant.email
+                        
+    if event.open
+        div.row
+            div.col-xs-12
+                if joinedAsMentor === true
+                    form(role='form' method='post' action='/events/leaveAsMentor')
+                        .form-group
+                            input(type='hidden' name='event', value= id)
+                        .form-group
+                            input(type='hidden', name='_csrf', value=_csrf)
+                        button.leave-hack(type='submit') Stop Mentoring
+                else if mentors.length < 1 && user && user.profile.mentor === true
+                    form(role='form' method='post' action='/events/joinAsMentor')
+                        .form-group
+                            input(type='hidden' name='event', value= id)
+                        .form-group
+                            input(type='hidden', name='_csrf', value=_csrf)
+                        button.join-hack(type='submit') Become a Mentor
+
+    div.row
+        div.col-xs-12
+            div.hack-background
+                div.participant-heading
+                    span= mentors.length
+                    span  mentors
+                for mentor in mentors
+                    div
+                        +profile-picture(mentor, 'participant-avatar')
+                        if mentor.profile.name
+                            span.participant-name= mentor.profile.name
+                        else
+                            span.participant-name= mentor.email

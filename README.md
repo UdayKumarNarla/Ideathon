@@ -1,2 +1,1 @@
-# Ideathon
-Ideathon using nodejs
+# public-ideathon
