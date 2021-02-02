@@ -1,1 +1,1 @@
-# public-ideathon
+# ideathon
